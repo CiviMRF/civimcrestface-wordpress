@@ -1,0 +1,24 @@
+{
+"repositories": [
+    {
+        "type": "package",
+        "package": {
+            "name": "CiviMRF/CMRF_Abstract_Core",
+            "version": "0.1",
+            "source": {
+                "url": "https://github.com/CiviMRF/CMRF_Abstract_Core.git",
+                "type": "git",
+                "reference": "master"
+            },
+            "autoload": {
+                "psr-0": {
+                    "CMRF": ""
+                }
+            }
+        }
+    }],
+    "require": {
+        "CiviMRF/CMRF_Abstract_Core": "0.1"
+    }
+
+}
