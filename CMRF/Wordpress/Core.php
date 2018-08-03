@@ -116,6 +116,9 @@ class Core extends AbstractCore {
 
   public function getRegisteredConnectors() {
     $this->connectors = get_option('cmrf_core_connectors');
+    if (!is_array($this->connectors)) {
+      $this->connectors = [];
+    }
     return $this->connectors  + [
       'curl' => ['label' => 'Remote Connection', 'callback' => 'cmrf_core_curl_connector'],
     ];
