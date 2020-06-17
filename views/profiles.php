@@ -6,7 +6,7 @@
 ?>
 <div class="wrap">
 
-<h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Profiles' , 'wpcmrf');?></h1>
+<h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Connections' , 'wpcmrf');?></h1>
 <a href="<?php echo self_admin_url( 'options-general.php?page=wpcmrf_admin&action=new'); ?>" class="page-title-action">Add New</a>
 
 

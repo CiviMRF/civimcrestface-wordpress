@@ -6,7 +6,7 @@
 ?>
 <div class="wrap">
 
-<h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Profiles' , 'wpcmrf');?></h1>
+<h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Connection' , 'wpcmrf');?></h1>
 
     <form name="wpcmrf_admin" id="wpcmrf_admin" action="<?php echo self_admin_url( 'options-general.php?page=wpcmrf_admin&action=save'); ?>" method="POST">
         <div class="inside">

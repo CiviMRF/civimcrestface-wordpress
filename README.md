@@ -1,9 +1,24 @@
-# Civi McREST Face (CMRF) connector for Wordpress
+# CiviCRM McRestFace (CMRF) connector for Wordpress
 
 This provides a connector for Wordpress to access remote CiviCRM databases using [CMRF](https://github.com/CiviMRF)
 
-**Warning** I've struggled to understand CMRF and based this on hacking the Drupal CMRF Core.
+This plugin does only provide a way to connect to a remote or a local CiviCRM.
+After installing this plugin you can manage connections under Settings --> CiviCRM McRestFace Connections
 
-I've got it working, but it's in no way as complete as the Drupal one. I just didn't want to re-invent the wheel.
+Plugins usings the CiviCRM McRestFace connector:
 
-PRs and support welcome!
+* [Caldera Forms integration with CiviCRMs Form Processor extension](https://github.com/CiviMRF/cf-civicrm-formprocessor)
+
+## How to install
+
+Open a terminal to your wordpress installation.
+
+```
+cd wp-content/plugins
+git clone https://github.com/CiviMRF/wpcmrf.git
+cd wpcmrf
+composer install
+```
+
+Then login in the admin of your wordpress installation and activate this plugin.
+

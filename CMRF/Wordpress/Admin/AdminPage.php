@@ -29,7 +29,7 @@ class AdminPage {
   }
 
   public function admin_menu() {
-    add_options_page( __('CiviMRF Settings', 'wpcmrf'), __('CiviCRM McRestFace Settings', 'wpcmrf'), 'manage_options', 'wpcmrf_admin', array($this, 'display_page' ) );
+    add_options_page( __('CiviMRF Settings', 'wpcmrf'), __('CiviCRM McRestFace Connections', 'wpcmrf'), 'manage_options', 'wpcmrf_admin', array($this, 'display_page' ) );
   }
 
   public function display_page() {
