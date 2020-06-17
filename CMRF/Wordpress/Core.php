@@ -15,12 +15,11 @@ require_once(__DIR__ .'/Call.php');
 require_once(__DIR__ .'/Connection/Curl.php');
 //require_once(__DIR__ .'/SQLPersistingCallFactory.php');
 
-use CMRF\Core\Core         as AbstractCore;
 use CMRF\Core\Connection;
 use CMRF\PersistenceLayer\SQLPersistingCallFactory;
 
 
-class Core extends AbstractCore {
+class Core extends \CMRF\Core\Core {
 
   /**
    * @var Array
@@ -64,18 +63,24 @@ class Core extends AbstractCore {
    */
   public function __construct() {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'cmrf_core_call';
+    $table_name = $wpdb->prefix . 'wpcmrf_core_call';
     $connection = new \mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $factory = new SQLPersistingCallFactory($connection, $table_name, array('\CMRF\Wordpress\Call','createNew'), array('\CMRF\Wordpress\Call','createWithRecord'));
+
+    // Load profiles
+    $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile", 'ARRAY_A');
+    foreach($result as $profile) {
+      $this->profiles[$profile['id']] = $profile;
+    }
+
     parent::__construct($factory);
   }
 
   public function getDefaultProfile() {
     if (!isset($this->default_profile)) {
-      $this->default_profile = array_keys($this->profiles)[0];
-      foreach ($this->profiles as $name => $profile) {
+      foreach ($this->profiles as $id => $profile) {
         if ($profile['default']) {
-          $this->default_profile = $profile['name'];
+          $this->default_profile = $profile;
         }
       }
     }
@@ -90,14 +95,16 @@ class Core extends AbstractCore {
    * @return Connection
    */
   protected function getConnection($connector_id) {
-    if (!isset($this->connections[$connector_id])) {
+    if (!isset($this->profile[$connector_id])) {
       $connectors = $this->getRegisteredConnectors();
       $profile = $this->getConnectionProfile($connector_id);
       if (!isset($connectors[$profile['connector']])) {
         error_log('ERROR: cmrf_core: No connector available for ' . $profile['connector']);
+        return;
       }
-      if (!isset($connectors[$profile['connector']]['callback']) || !function_exists($connectors[$profile['connector']]['callback'] )) {
+      if (!isset($connectors[$profile['connector']]['callback']) || !function_exists($connectors[$profile['connector']]['callback'])) {
         error_log('ERROR: cmrf_core: No connector callback available for ' . $profile['connector']);
+        return;
       }
       $this->connections[$connector_id] = call_user_func($connectors[$profile['connector']]['callback'], $this, $connector_id);
     }
@@ -114,28 +121,41 @@ class Core extends AbstractCore {
     return $this->profiles;
   }
 
-  public function getRegisteredConnectors() {
-    $this->connectors = get_option('cmrf_core_connectors');
-    if (!is_array($this->connectors)) {
-      $this->connectors = [];
+  public function getConnectionProfile($connector_id) {
+    $connection_profiles = $this->getConnectionProfiles();
+    if (isset($connection_profiles[$connector_id])) {
+      return $connection_profiles[$connector_id];
+    } else {
+      throw new \Exception("Invalid profile '$connector_id'.", 1);
     }
-    return $this->connectors  + [
-      'curl' => ['label' => 'Remote Connection', 'callback' => 'cmrf_core_curl_connector'],
-    ];
+  }
+
+  public function getRegisteredConnectors() {
+    $connectors['curl'] = array(
+      'label' => __('Remote connection', 'wpcmrf'),
+      'callback' => 'wpcmrf_core_curl_connector',
+    );
+    if (function_exists('civi_wp')) {
+      $connectors['local'] = [
+        'label' => __('Local connection', 'wpcmrf'),
+        'callback' => 'wpcmrf_core_local_connector',
+      ];
+    }
+    return $connectors;
   }
 
   protected function storeRegisteredConnectors($connectors) {
     $this->connectors = $connectors;
-    return update_option('cmrf_core_connectors', $connectors);
   }
 
-  public function getSettings() {
-    return get_option('cmrf_core_settings');
+  protected function getSettings() {
+    // This function doesn't do anything
   }
 
   protected function storeSettings($settings) {
-    return update_option('cmrf_core_settings', $settings);
+    // This function doesn't do anything.
   }
+
 
 }
 
