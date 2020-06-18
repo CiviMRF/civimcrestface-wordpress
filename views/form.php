@@ -32,15 +32,16 @@
                         </span>
                     </td>
                 </tr>
-                <tr>
+                <tr class="wpcmrf_remote">
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM Rest URL', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
                         <span><input id="url" name="url" type="text" size="15" value="<?php echo esc_attr($profile->url); ?>" class="regular-text code"></span>
+                        <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php'); ?></p>
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="wpcmrf_remote">
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM Site Key', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
@@ -48,7 +49,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="wpcmrf_remote">
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM API Key', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
@@ -69,7 +70,16 @@
         </div>
     </form>
 
-
-
-
+    <script type="text/javascript">
+      jQuery(document).ready(function($){
+            $('#connector').on('change', function() {
+                if ($(this).val() == 'local') {
+                    $('.wpcmrf_remote').hide();
+                } else {
+                  $('.wpcmrf_remote').show();
+                }
+            });
+            $('#connector').trigger('change');
+        });
+    </script>
 </div>

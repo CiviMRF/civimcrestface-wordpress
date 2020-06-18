@@ -30,6 +30,22 @@ class AdminPage {
 
   public function admin_menu() {
     add_options_page( __('CiviMRF Settings', 'wpcmrf'), __('CiviCRM McRestFace Connections', 'wpcmrf'), 'manage_options', 'wpcmrf_admin', array($this, 'display_page' ) );
+    add_options_page( __('CiviMRF Call Log', 'wpcmrf'), __('CiviCRM McRestFace Log', 'wpcmrf'), 'manage_options', 'wpcmrf_calllog', array($this, 'display_logpage' ) );
+  }
+
+  public function display_logpage() {
+    global $wpdb;
+    $action = $_REQUEST['action'];
+    switch($action) {
+      case 'clear':
+        $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
+        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call");
+        self::view( 'calllog', ['calls' => $calls] );
+        break;
+      default:
+        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call");
+        self::view( 'calllog', ['calls' => $calls] );
+    }
   }
 
   public function display_page() {
