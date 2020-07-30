@@ -13,6 +13,7 @@ namespace CMRF\Wordpress;
 
 require_once(__DIR__ .'/Call.php');
 require_once(__DIR__ .'/Connection/Curl.php');
+require_once(__DIR__ .'/Connection/Local.php');
 //require_once(__DIR__ .'/SQLPersistingCallFactory.php');
 
 use CMRF\Core\Connection;
