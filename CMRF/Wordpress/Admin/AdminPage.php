@@ -11,7 +11,8 @@ class AdminPage {
   protected static $singleton = false;
 
   private function __construct() {
-    add_action( 'admin_menu', array($this, 'admin_menu' ) );
+    add_action( 'admin_menu', [$this, 'admin_menu'] );
+    add_filter( 'plugin_action_links', [$this, 'plugin_action_links'], 10, 2 );
   }
 
   public static function init() {
@@ -31,6 +32,18 @@ class AdminPage {
   public function admin_menu() {
     add_options_page( __('CiviMRF Settings', 'wpcmrf'), __('CiviCRM McRestFace Connections', 'wpcmrf'), 'manage_options', 'wpcmrf_admin', array($this, 'display_page' ) );
     add_options_page( __('CiviMRF Call Log', 'wpcmrf'), __('CiviCRM McRestFace Log', 'wpcmrf'), 'manage_options', 'wpcmrf_calllog', array($this, 'display_logpage' ) );
+  }
+
+  public function plugin_action_links( $links, $file ) {
+    if ($file == plugin_basename(WPCMRF_PLUGIN_DIR) . '/wpcmrf.php') {
+      $link = add_query_arg( [ 'page' => 'wpcmrf_admin' ], admin_url( 'options-general.php' ) );
+      $links[] = sprintf(
+        '<a href="%1$s">%2$s</a>',
+        esc_url( $link ),
+        esc_html__( 'Settings' )
+      );
+    }
+    return $links;
   }
 
   public function display_logpage() {
