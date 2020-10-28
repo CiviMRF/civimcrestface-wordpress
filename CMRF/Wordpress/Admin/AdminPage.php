@@ -77,12 +77,23 @@ class AdminPage {
         $profile['site_key'] = $_POST['site_key'];
         $profile['api_key'] = $_POST['api_key'];
         if (!empty($_REQUEST['profile_id'])) {
-          $wpdb->update($wpdb->prefix . 'wpcivimrf_profile', $profile, ["id" => $_REQUEST['profile_id']]);
+          $profile_id = esc_sql($_REQUEST['profile_id']);
+          $wpdb->update($wpdb->prefix . 'wpcivimrf_profile', $profile, ["id" => $profile_id]);
         } else {
           $wpdb->insert($wpdb->prefix . 'wpcivimrf_profile', $profile);
+          $profile_id = $wpdb->insert_id;
         }
-        $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile");
-        self::view( 'profiles', ['profiles' => $profiles] );
+        // If validation fails, reshow form, otherwise go to profile list
+        if (!self::validate($profile_id, FALSE)) {
+          $profile =$wpdb->get_row("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile WHERE id = {$profile_id}");
+          $core = wpcmrf_get_core();
+          $connectors = $core->getRegisteredConnectors();
+          self::view( 'form', ['connectors' => $connectors, 'profile' => $profile]);
+        }
+        else {
+          $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile");
+          self::view( 'profiles', ['profiles' => $profiles] );
+        }
         break;
       case 'new':
         $core = wpcmrf_get_core();
@@ -110,6 +121,34 @@ class AdminPage {
     load_plugin_textdomain( 'wpcmrf' );
     $file = WPCMRF_PLUGIN_DIR . 'views/'. $name . '.php';
     include($file);
+  }
+
+  /**
+   * Validate connection configuration
+   *
+   * @param int $profile_id
+   * @param bool $show_message - if true, return html message, else boolean
+   *
+   * @return string|bool
+   */
+  public static function validate($profile_id, $show_message = TRUE) {
+    if (!$profile_id) { return; }
+    // There's nothing special about System.getcount - anything call will do
+    $call = wpcmrf_api("System", "getcount", [], [], $profile_id);
+    $reply = $call->getReply();
+    $error = $reply['error_message'] ?? NULL;
+    if (!$error) {
+      $error = $reply['is_error'] ? 'ERROR: check URL' : '';
+    }
+
+    if ($show_message) {
+      return $error ?
+        '<div class="notice notice-error">' . __('Validation failed', 'wpcmrf') . ": " . $error . '</div>' :
+        '<div class="notice notice-success">' . __('Validation successful', 'wpcmrf') . '</div>';
+    }
+    else {
+      return empty($error);
+    }
   }
 
 }

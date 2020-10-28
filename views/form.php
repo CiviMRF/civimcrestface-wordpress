@@ -8,7 +8,9 @@
 
 <h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Connection' , 'wpcmrf');?></h1>
 
-    <form name="wpcmrf_admin" id="wpcmrf_admin" action="<?php echo self_admin_url( 'options-general.php?page=wpcmrf_admin&action=save'); ?>" method="POST">
+    <?php echo \CMRF\Wordpress\Admin\AdminPage::validate($profile->id ?? ''); ?>
+
+    <form name="wpcmrf_admin" id="wpcmrf_admin" action="<?php echo self_admin_url( 'options-general.php?page=wpcmrf_admin&action=save&profile_id=' . ($profile->id ?? '')); ?>" method="POST">
         <div class="inside">
             <table cellspacing="0">
                 <tbody>
