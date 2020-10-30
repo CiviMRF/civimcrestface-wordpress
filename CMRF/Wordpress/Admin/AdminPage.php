@@ -35,7 +35,7 @@ class AdminPage {
 
   public function display_logpage() {
     global $wpdb;
-    $action = $_REQUEST['action'];
+    $action = $_REQUEST['action'] ?? '';
     switch($action) {
       case 'clear':
         $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
@@ -50,7 +50,7 @@ class AdminPage {
 
   public function display_page() {
     global $wpdb;
-    $action = $_REQUEST['action'];
+    $action = $_REQUEST['action'] ?? '';
     switch($action) {
       case 'delete':
         $wpdb->delete($wpdb->prefix.'wpcivimrf_profile', ["id" => $_REQUEST['profile_id']]);

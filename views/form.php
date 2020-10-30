@@ -16,7 +16,7 @@
                     <th width="20%" align="left" scope="row"><?php esc_html_e('Name', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
-                        <span><input id="label" name="label" type="text" size="15" value="<?php echo esc_attr($profile->label); ?>" class="regular-text code"></span>
+                        <span><input id="label" name="label" type="text" size="15" value="<?php echo esc_attr($profile->label ?? ''); ?>" class="regular-text code"></span>
                     </td>
                 </tr>
                 <tr>
@@ -26,7 +26,7 @@
                         <span>
                             <select id="connector" name="connector">
                                 <?php foreach($connectors as $connector_type => $connector) {?>
-                                  <option value="<?php echo esc_attr($connector_type); ?>" <?php if ($profile->connector == $connector_type) {?>selected="selected"<?php } ?>><?php echo esc_html($connector['label']); ?></option>
+                                  <option value="<?php echo esc_attr($connector_type); ?>" <?php if (isset($profile) && $profile->connector == $connector_type) {?>selected="selected"<?php } ?>><?php echo esc_html($connector['label']); ?></option>
                                 <?php } ?>
                             </select>
                         </span>
@@ -36,7 +36,7 @@
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM Rest URL', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
-                        <span><input id="url" name="url" type="text" size="15" value="<?php echo esc_attr($profile->url); ?>" class="regular-text code"></span>
+                        <span><input id="url" name="url" type="text" size="15" value="<?php echo esc_attr($profile->url ?? ''); ?>" class="regular-text code"></span>
                         <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php'); ?></p>
                     </td>
                 </tr>
@@ -45,7 +45,7 @@
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM Site Key', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
-                        <span><input id="site_key" name="site_key" type="text" size="15" value="<?php echo esc_attr($profile->site_key); ?>" class="regular-text code"></span>
+                        <span><input id="site_key" name="site_key" type="text" size="15" value="<?php echo esc_attr($profile->site_key ?? ''); ?>" class="regular-text code"></span>
                     </td>
                 </tr>
 
@@ -53,7 +53,7 @@
                     <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM API Key', 'wpcmrf');?></th>
                     <td width="5%"/>
                     <td align="left">
-                        <span><input id="api_key" name="api_key" type="text" size="15" value="<?php echo esc_attr($profile->api_key); ?>" class="regular-text code"></span>
+                        <span><input id="api_key" name="api_key" type="text" size="15" value="<?php echo esc_attr($profile->api_key ?? ''); ?>" class="regular-text code"></span>
                     </td>
                 </tr>
 
@@ -63,7 +63,7 @@
         <div id="major-publishing-actions">
           <?php wp_nonce_field('wpcmrf_admin') ?>
             <div id="publishing-action">
-                <input type="hidden" name="profile_id" value="<?php echo esc_attr($profile->id); ?>" />
+                <input type="hidden" name="profile_id" value="<?php echo esc_attr($profile->id ?? ''); ?>" />
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php esc_attr_e('Save Changes', 'wpcmrf');?>">
             </div>
             <div class="clear"></div>
