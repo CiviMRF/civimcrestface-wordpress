@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: CiviCRM-Wordpress CiviMcRestFace Connector
+Plugin Name: CiviCRM CiviMcRestFace Connector
 Plugin URI:  https://artfulrobot.uk
 Description: Provides connector to a local or remote CiviCRM. This connector could be used by other plugins.
 Version:     20200814

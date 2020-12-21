@@ -52,11 +52,8 @@ class AdminPage {
     switch($action) {
       case 'clear':
         $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
-        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call");
-        self::view( 'calllog', ['calls' => $calls] );
-        break;
       default:
-        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call");
+        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call ORDER BY `create_date` DESC");
         self::view( 'calllog', ['calls' => $calls] );
     }
   }
@@ -134,7 +131,7 @@ class AdminPage {
   public static function validate($profile_id, $show_message = TRUE) {
     if (!$profile_id) { return; }
     // There's nothing special about System.getcount - anything call will do
-    $call = wpcmrf_api("System", "getcount", [], [], $profile_id);
+    $call = wpcmrf_api("Entity", "get", [], [], $profile_id);
     $reply = $call->getReply();
     $error = $reply['error_message'] ?? NULL;
     if (!$error) {
