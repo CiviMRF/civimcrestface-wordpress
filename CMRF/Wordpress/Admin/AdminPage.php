@@ -11,6 +11,7 @@ class AdminPage {
   protected static $singleton = false;
 
   private function __construct() {
+    add_action('admin_init', [$this, 'clear_cache'] );
     add_action( 'admin_menu', [$this, 'admin_menu'] );
     add_filter( 'plugin_action_links', [$this, 'plugin_action_links'], 10, 2 );
   }
@@ -44,6 +45,20 @@ class AdminPage {
       );
     }
     return $links;
+  }
+
+  public function clear_cache() {
+    global $wpdb;
+    if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'wpcmrf_calllog') {
+      $action = $_REQUEST['action'] ?? '';
+      switch($action) {
+        case 'clear':
+          $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
+          wp_redirect(menu_page_url('wpcmrf_calllog', false));
+          exit();
+          break;
+      }
+    }
   }
 
   public function display_logpage() {
