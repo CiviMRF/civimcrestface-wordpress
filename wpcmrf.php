@@ -63,7 +63,7 @@ function wpcmrf_install() {
   global $wpcmrf_version;
   require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-  $table_name = $wpdb->prefix . "wpcivimrf_profile";
+  $table_name = $wpdb->get_blog_prefix() . "wpcivimrf_profile";
   $charset_collate = $wpdb->get_charset_collate();
   $sql = "CREATE TABLE $table_name (
       id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -77,7 +77,7 @@ function wpcmrf_install() {
 
   dbDelta( $sql );
 
-  $table_name = $wpdb->prefix . "wpcmrf_core_call";
+  $table_name = $wpdb->get_blog_prefix() . "wpcmrf_core_call";
   $sql = "
     CREATE TABLE `$table_name` (
         `cid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Call ID',

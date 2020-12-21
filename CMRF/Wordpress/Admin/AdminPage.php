@@ -53,7 +53,7 @@ class AdminPage {
       $action = $_REQUEST['action'] ?? '';
       switch($action) {
         case 'clear':
-          $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
+          $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->get_blog_prefix()."wpcmrf_core_call`"));
           wp_redirect(menu_page_url('wpcmrf_calllog', false));
           exit();
           break;
@@ -66,9 +66,9 @@ class AdminPage {
     $action = $_REQUEST['action'] ?? '';
     switch($action) {
       case 'clear':
-        $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->prefix."wpcmrf_core_call`"));
+        $wpdb->query($wpdb->prepare("DELETE FROM `".$wpdb->get_blog_prefix()."wpcmrf_core_call`"));
       default:
-        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcmrf_core_call ORDER BY `create_date` DESC");
+        $calls = $result =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcmrf_core_call ORDER BY `create_date` DESC");
         self::view( 'calllog', ['calls' => $calls] );
     }
   }
@@ -78,8 +78,8 @@ class AdminPage {
     $action = $_REQUEST['action'] ?? '';
     switch($action) {
       case 'delete':
-        $wpdb->delete($wpdb->prefix.'wpcivimrf_profile', ["id" => $_REQUEST['profile_id']]);
-        $profiles = $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile");
+        $wpdb->delete($wpdb->get_blog_prefix().'wpcivimrf_profile', ["id" => $_REQUEST['profile_id']]);
+        $profiles = $result =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile");
         self::view( 'profiles', ['profiles' => $profiles] );
         break;
       case 'save':
@@ -90,20 +90,20 @@ class AdminPage {
         $profile['api_key'] = $_POST['api_key'];
         if (!empty($_REQUEST['profile_id'])) {
           $profile_id = esc_sql($_REQUEST['profile_id']);
-          $wpdb->update($wpdb->prefix . 'wpcivimrf_profile', $profile, ["id" => $profile_id]);
+          $wpdb->update($wpdb->get_blog_prefix() . 'wpcivimrf_profile', $profile, ["id" => $profile_id]);
         } else {
-          $wpdb->insert($wpdb->prefix . 'wpcivimrf_profile', $profile);
+          $wpdb->insert($wpdb->get_blog_prefix() . 'wpcivimrf_profile', $profile);
           $profile_id = $wpdb->insert_id;
         }
         // If validation fails, reshow form, otherwise go to profile list
         if (!self::validate($profile_id, FALSE)) {
-          $profile =$wpdb->get_row("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile WHERE id = {$profile_id}");
+          $profile =$wpdb->get_row("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile WHERE id = {$profile_id}");
           $core = wpcmrf_get_core();
           $connectors = $core->getRegisteredConnectors();
           self::view( 'form', ['connectors' => $connectors, 'profile' => $profile]);
         }
         else {
-          $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile");
+          $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile");
           self::view( 'profiles', ['profiles' => $profiles] );
         }
         break;
@@ -114,13 +114,13 @@ class AdminPage {
         break;
       case 'edit':
         $id = esc_sql($_REQUEST['profile_id']);
-        $profile =$wpdb->get_row("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile WHERE id = {$id}");
+        $profile =$wpdb->get_row("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile WHERE id = {$id}");
         $core = wpcmrf_get_core();
         $connectors = $core->getRegisteredConnectors();
         self::view( 'form', ['connectors' => $connectors, 'profile' => $profile]);
         break;
       default:
-        $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile");
+        $profiles =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile");
         self::view( 'profiles', ['profiles' => $profiles] );
     }
   }

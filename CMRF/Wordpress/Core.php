@@ -64,12 +64,12 @@ class Core extends \CMRF\Core\Core {
    */
   public function __construct() {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'wpcmrf_core_call';
+    $table_name = $wpdb->get_blog_prefix() . 'wpcmrf_core_call';
     $connection = new \mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
     $factory = new SQLPersistingCallFactory($connection, $table_name, array('\CMRF\Wordpress\Call','createNew'), array('\CMRF\Wordpress\Call','createWithRecord'));
 
     // Load profiles
-    $result =$wpdb->get_results("SELECT * FROM {$wpdb->prefix}wpcivimrf_profile", 'ARRAY_A');
+    $result =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile", 'ARRAY_A');
     foreach($result as $profile) {
       $this->profiles[$profile['id']] = $profile;
     }

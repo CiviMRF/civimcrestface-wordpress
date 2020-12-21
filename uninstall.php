@@ -6,8 +6,8 @@
 
 if( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) exit();
 global $wpdb;
-$table_name = $wpdb->prefix . "wpcivimrf_profile";
+$table_name = $wpdb->get_blog_prefix() . "wpcivimrf_profile";
 $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
-$table_name = $wpdb->prefix . "wpcmrf_core_call";
+$table_name = $wpdb->get_blog_prefix() . "wpcmrf_core_call";
 $wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 delete_option("wpcmrf_version");
