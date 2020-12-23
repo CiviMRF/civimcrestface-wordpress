@@ -1,20 +1,32 @@
 <?php
-/*
-Plugin Name: CiviCRM CiviMcRestFace Connector
-Plugin URI:  https://artfulrobot.uk
-Description: Provides connector to a local or remote CiviCRM. This connector could be used by other plugins.
-Version:     20200814
-Author:      Rich Lott
-Author URI:  https://artfulrobot.uk
-License:     GPL3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-Text Domain: wpcmrf
-*/
+/**
+ * Plugin Name: CiviCRM McRestFace Connector
+ * Description: Provides an API connector to a local or remote CiviCRM installation. This connector could be used by other plugins. Funded by Artfulrobot, CiviCoop, civiservice.de, Bundesverband Soziokultur e.V., Article 19
+ * Version: 1.0.0
+ * Author: Rich Lott (Artfulrobot), Jaap Jansma (CiviCooP)
+ * Plugin URI: https://github.com/CiviMRF/civimcrestface-wordpress
+ * Text Domain: wpcmrf
+ * Domain Path: /languages
+ * License: AGPL-3.0
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 // All functions are Wordpress-specific.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-$wpcmrf_version = '1.0';
+$wpcmrf_version = '1.0.0';
 define( 'WPCMRF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once(WPCMRF_PLUGIN_DIR . '/vendor/autoload.php');

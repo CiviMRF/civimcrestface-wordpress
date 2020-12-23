@@ -1,13 +1,22 @@
-# CiviCRM McRestFace (CMRF) connector for Wordpress
+# CiviCRM McRestFace Connector
 
-This provides a connector for Wordpress to access remote CiviCRM databases using [CMRF](https://github.com/CiviMRF)
+This plugin provides a connector to connect to a local or remote CiviCRM. This connector can then be reused by other plugins such as the [Integration of CiviCRM's Form Processor with Caldera Forms](https://wordpress.org/plugins/cf-civicrm-formprocessor/)
 
-This plugin does only provide a way to connect to a remote or a local CiviCRM.
-After installing this plugin you can manage connections under Settings --> CiviCRM McRestFace Connections
+**Configuration**
 
-Plugins usings the CiviCRM McRestFace connector:
+Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 
-* [Caldera Forms integration with CiviCRMs Form Processor extension](https://github.com/CiviMRF/cf-civicrm-formprocessor)
+**Plugins using the CiviCRM McRestFace Connector**
+
+* [Integration of CiviCRM's Form Processor with Caldera Forms](https://wordpress.org/plugins/cf-civicrm-formprocessor/)
+
+**Funded by**
+
+* [Artfulrobot](https://artfulrobot.uk)
+* [CiviCooP](https://www.civicoop.org)
+* [Civiservice.de GmbH](https://civiservice.de/)
+* [Bundesverband Soziokultur e.V.](https://www.soziokultur.de/)
+* [Article 19](https://www.article19.org/)
 
 ## How to install
 
@@ -21,4 +30,8 @@ composer install
 ```
 
 Then login in the admin of your wordpress installation and activate this plugin.
+
+# License
+
+The plugin is licensed under [AGPL-3.0](LICENSE.txt).
 
