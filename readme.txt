@@ -1,6 +1,6 @@
-=== CiviCRM McRestFace Connector ===
+=== Connector to CiviCRM with CiviMcRestFace ===
 Contributors: jaapjansma, artfulrobot
-Donate link: https://github.com/CiviMRF/cf-civicrm-formprocessor/
+Donate link: https://github.com/CiviMRF/civimcrestface-wordpress
 Tags: CiviCRM, api, connector, rest
 Requires at least: 5.2
 Tested up to: 5.6

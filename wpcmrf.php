@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: CiviCRM McRestFace Connector
+ * Plugin Name: Connector to CiviCRM with CiviMcRestFace
  * Description: Provides an API connector to a local or remote CiviCRM installation. This connector could be used by other plugins. Funded by Artfulrobot, CiviCoop, civiservice.de, Bundesverband Soziokultur e.V., Article 19
  * Version: 1.0.0
  * Author: Rich Lott (Artfulrobot), Jaap Jansma (CiviCooP)
