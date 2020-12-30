@@ -4,11 +4,11 @@
         "type": "package",
         "package": {
             "name": "CiviMRF/CMRF_Abstract_Core",
-            "version": "0.1",
+            "version": "0.5",
             "source": {
                 "url": "https://github.com/CiviMRF/CMRF_Abstract_Core.git",
                 "type": "git",
-                "reference": "master"
+                "reference": "0.5"
             },
             "autoload": {
                 "psr-0": {
@@ -18,7 +18,7 @@
         }
     }],
     "require": {
-        "CiviMRF/CMRF_Abstract_Core": "0.1"
+        "CiviMRF/CMRF_Abstract_Core": "0.5"
     }
 
 }

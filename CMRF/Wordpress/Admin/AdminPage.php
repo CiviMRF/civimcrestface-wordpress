@@ -83,11 +83,11 @@ class AdminPage {
         self::view( 'profiles', ['profiles' => $profiles] );
         break;
       case 'save':
-        $profile['label'] = $_POST['label'];
-        $profile['connector'] = $_POST['connector'];
-        $profile['url'] = $_POST['url'];
-        $profile['site_key'] = $_POST['site_key'];
-        $profile['api_key'] = $_POST['api_key'];
+        $profile['label'] = sanitize_text_field($_POST['label']);
+        $profile['connector'] = sanitize_text_field($_POST['connector']);
+        $profile['url'] = sanitize_text_field($_POST['url']);
+        $profile['site_key'] = sanitize_text_field($_POST['site_key']);
+        $profile['api_key'] = sanitize_text_field($_POST['api_key']);
         if (!empty($_REQUEST['profile_id'])) {
           $profile_id = esc_sql($_REQUEST['profile_id']);
           $wpdb->update($wpdb->get_blog_prefix() . 'wpcivimrf_profile', $profile, ["id" => $profile_id]);
