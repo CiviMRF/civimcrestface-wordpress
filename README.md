@@ -24,7 +24,7 @@ Open a terminal to your wordpress installation.
 
 ```
 cd wp-content/plugins
-git clone https://github.com/CiviMRF/civimcrestface-wordpress.git
+git clone https://github.com/CiviMRF/civimcrestface-wordpress.git wpcmrf
 cd wpcmrf
 composer install
 ```
