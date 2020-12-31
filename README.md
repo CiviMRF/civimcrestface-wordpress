@@ -58,6 +58,7 @@ Based on the instruction from [Learn with Daniel](https://learnwithdaniel.com/20
     1. Clone the Github repository into Github directory: `git clone https://github.com/CiviMRF/civimcrestface-wordpress.git github`
     1. Go into the Github directory: `cd github`
     1. Checkout the created release (in our example 1.0.0): `git checkout 1.0.0`
+    1. Do a composer install: `composer install --no-dev --optimize-autoloader`   
     1. Go into the svn directory: `cd ../svn`
     1. Copie the files from github to SVN: `rsync -rc --exclude-from="../github/.distignore" "../github/" trunk/ --delete --delete-excluded`
     1. Add the files to SVN: `svn add . --force`
