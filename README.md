@@ -34,8 +34,8 @@ Then login in the admin of your wordpress installation and activate this plugin.
 # Contributing
 
 The code of this plugin is published and maintained at [Github](https://github.com/CiviMRF/civimcrestface-wordpress/).
-The plugin is also published at [Wordpress.org](https://wordpress.org/plugins/cf-civicrm-formprocessor)
-and this requires that we submit each release to the [Wordpress SVN](https://plugins.svn.wordpress.org/cf-civicrm-formprocessor)
+The plugin is also published at [Wordpress.org](https://wordpress.org/plugins/connector-civicrm-mcrestface)
+and this requires that we submit each release to the [Wordpress SVN](https://plugins.svn.wordpress.org/connector-civicrm-mcrestface)
 
 **Workflow for development**
 
