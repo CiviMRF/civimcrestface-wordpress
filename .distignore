@@ -1,0 +1,6 @@
+.distignore
+.editorconfig
+.git
+.gitignore
+vendor
+README.md
