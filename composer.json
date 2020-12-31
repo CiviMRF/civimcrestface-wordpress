@@ -3,7 +3,7 @@
     {
         "type": "package",
         "package": {
-            "name": "CiviMRF/CMRF_Abstract_Core",
+            "name": "civimrf/cmrf_abstract_core",
             "version": "0.5",
             "source": {
                 "url": "https://github.com/CiviMRF/CMRF_Abstract_Core.git",
@@ -18,7 +18,7 @@
         }
     }],
     "require": {
-        "CiviMRF/CMRF_Abstract_Core": "0.5"
+        "civimrf/cmrf_abstract_core": "0.5"
     }
 
 }
