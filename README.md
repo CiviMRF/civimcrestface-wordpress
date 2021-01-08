@@ -54,7 +54,7 @@ Based on the instruction from [Learn with Daniel](https://learnwithdaniel.com/20
 1. To publish the release at Wordpress Plugin directory follow the following steps:
     1. Create a temp directory: `mkdir civimcrestface-wordpress-tmp`
     1. Go into this directory: `cd civimcrestface-wordpress-tmp`
-    1. Do an SVN checkout into SVN directory: `svn checkout --depth immediates https://plugins.svn.wordpress.org/connector-civicrm-mcrestface svn`
+    1. Do an SVN checkout into SVN directory: `svn checkout https://plugins.svn.wordpress.org/connector-civicrm-mcrestface svn`
     1. Clone the Github repository into Github directory: `git clone https://github.com/CiviMRF/civimcrestface-wordpress.git github`
     1. Go into the Github directory: `cd github`
     1. Checkout the created release (in our example 1.0.0): `git checkout 1.0.0`
