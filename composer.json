@@ -1,24 +1,12 @@
 {
-"repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "civimrf/cmrf_abstract_core",
-            "version": "0.5",
-            "source": {
-                "url": "https://github.com/CiviMRF/CMRF_Abstract_Core.git",
-                "type": "git",
-                "reference": "0.5"
-            },
-            "autoload": {
-                "psr-0": {
-                    "CMRF": ""
-                }
-            }
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kainuk/CMRF_Abstract_Core"
         }
-    }],
+    ],
     "require": {
-        "civimrf/cmrf_abstract_core": "0.5"
+        "civimrf/cmrf_abstract_core": "dev-ajaxcurl"
     }
 
 }

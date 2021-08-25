@@ -13,6 +13,7 @@ namespace CMRF\Wordpress;
 
 require_once(__DIR__ .'/Call.php');
 require_once(__DIR__ .'/Connection/Curl.php');
+require_once(__DIR__ .'/Connection/AjaxCurl.php');
 require_once(__DIR__ .'/Connection/Local.php');
 //require_once(__DIR__ .'/SQLPersistingCallFactory.php');
 
@@ -135,6 +136,10 @@ class Core extends \CMRF\Core\Core {
     $connectors['curl'] = array(
       'label' => __('Remote connection', 'wpcmrf'),
       'callback' => 'wpcmrf_core_curl_connector',
+    );
+    $connectors['ajaxcurl'] = array(
+      'label' => __('Remote AJAX connection', 'wpcmrf'),
+      'callback' => 'wpcmrf_core_ajaxcurl_connector',
     );
     if (function_exists('civi_wp')) {
       $connectors['local'] = [

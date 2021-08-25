@@ -65,6 +65,10 @@ function wpcmrf_core_curl_connector(\CMRF\Core\Core $core, $connector_id) {
   return new \CMRF\Wordpress\Connection\Curl($core, $connector_id);
 }
 
+function wpcmrf_core_ajaxcurl_connector(\CMRF\Core\Core $core, $connector_id) {
+  return new \CMRF\Wordpress\Connection\AjaxCurl($core, $connector_id);
+}
+
 function wpcmrf_core_local_connector(\CMRF\Core\Core $core, $connector_id) {
   civi_wp()->initialize();
   return new \CMRF\Wordpress\Connection\Local($core, $connector_id);
