@@ -39,7 +39,8 @@
                     <td width="5%"/>
                     <td align="left">
                         <span><input id="url" name="url" type="text" size="15" value="<?php echo esc_attr($profile->url ?? ''); ?>" class="regular-text code"></span>
-                        <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php (Drupal)'); ?></p>
+                        <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php (Drupal 7)'); ?></p>
+                        <p class="description"><?php esc_html_e('or https://my-civi.org/civicrm/ajax/rest (Drupal 8/9 using AuthX)'); ?></p>
                         <p class="description"><?php esc_html_e('or https://my-civi.org/wp-json/civicrm/v3/rest (WordPress)'); ?></p>
                     </td>
                 </tr>
