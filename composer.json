@@ -1,12 +1,5 @@
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/kainuk/CMRF_Abstract_Core"
-        }
-    ],
     "require": {
-        "civimrf/cmrf_abstract_core": "dev-ajaxcurl"
+        "civimrf/cmrf_abstract_core": "dev-master"
     }
-
 }
