@@ -140,4 +140,4 @@ function wpcmrf_new_blog($blog_id) {
 
 }
 
-add_action('wpmu_new_blog', 'my_plugin_new_blog');
+add_action('wpmu_new_blog', 'wpcmrf_new_blog');
