@@ -128,3 +128,16 @@ function wpcmrf_install_into_current_blog() {
 }
 
 register_activation_hook( __FILE__, 'wpcmrf_install' );
+
+function wpcmrf_new_blog($blog_id) {
+
+  //replace with your base plugin path E.g. dirname/filename.php
+  if ( is_plugin_active_for_network( 'connector-civicrm-mcrestface/wpcmrf.php' ) ) {
+    switch_to_blog($blog_id);
+    wpcmrf_install_into_current_blog();
+    restore_current_blog();
+  }
+
+}
+
+add_action('wpmu_new_blog', 'my_plugin_new_blog');
