@@ -70,7 +70,20 @@ function wpcmrf_core_local_connector(\CMRF\Core\Core $core, $connector_id) {
   return new \CMRF\Wordpress\Connection\Local($core, $connector_id);
 }
 
-function wpcmrf_install() {
+function wpcmrf_install($network_wide) {
+  if (is_multisite() && $network_wide) {
+    foreach (get_sites(['fields' => 'ids']) as $blog_id) {
+      switch_to_blog($blog_id);
+      wpcmrf_install_into_current_blog();
+      restore_current_blog();
+    }
+  }
+  else {
+    wpcmrf_install_into_current_blog();
+  }
+}
+
+function wpcmrf_install_into_current_blog() {
   global $wpdb;
   global $wpcmrf_version;
   require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
