@@ -32,6 +32,7 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 
 == Changelog ==
 
+1.0.3: Added multi site activation.
 1.0.2: Added multi site activation.
 1.0.1: Added InnoDB to the database tables. This gave sometimes an installation error.
 1.0.0: First version.
