@@ -1,5 +1,5 @@
 === Connector to CiviCRM with CiviMcRestFace ===
-Contributors: jaapjansma, artfulrobot
+Contributors: jaapjansma, artfulrobot, kainuk
 Donate link: https://github.com/CiviMRF/civimcrestface-wordpress
 Tags: CiviCRM, api, connector, rest
 Requires at least: 5.2
