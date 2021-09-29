@@ -5,7 +5,7 @@ Tags: CiviCRM, api, connector, rest
 Requires at least: 5.2
 Tested up to: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: AGPL-3.0
 
 Provides an API connector to a local or remote CiviCRM installation. This connector could be used by other plugins. Funded by Artfulrobot, CiviCoop, civiservice.de, Bundesverband Soziokultur e.V., Article 19
