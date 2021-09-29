@@ -32,6 +32,7 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 
 == Changelog ==
 
+1.0.6: Fixed regression bug
 1.0.5: Added CurlAuthX connector.
 1.0.4: Added multi site activation.
 1.0.3: Added multi site activation.
