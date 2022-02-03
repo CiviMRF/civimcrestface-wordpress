@@ -1,5 +1,5 @@
 {
     "require": {
-        "civimrf/cmrf_abstract_core": "0.7"
+        "civimrf/cmrf_abstract_core": "0.8"
     }
 }
