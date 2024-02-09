@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Connector to CiviCRM with CiviMcRestFace
  * Description: Provides an API connector to a local or remote CiviCRM installation. This connector could be used by other plugins. Funded by Artfulrobot, CiviCoop, civiservice.de, Bundesverband Soziokultur e.V., Article 19
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: Rich Lott (Artfulrobot), Jaap Jansma (CiviCooP)
  * Plugin URI: https://github.com/CiviMRF/civimcrestface-wordpress
  * Text Domain: wpcmrf
@@ -26,7 +26,7 @@
 // All functions are Wordpress-specific.
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-$wpcmrf_version = '1.0.7';
+$wpcmrf_version = '1.0.8';
 define( 'WPCMRF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once(WPCMRF_PLUGIN_DIR . '/vendor/autoload.php');
