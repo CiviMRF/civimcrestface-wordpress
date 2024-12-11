@@ -32,6 +32,7 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 
 == Changelog ==
 
+1.0.9: Fixed input sanitization
 1.0.8: Compatibility with Wordpress 6.4
 1.0.7: Fixed notice in CiviMRF Abstract Core
 1.0.6: Fixed regression bug
