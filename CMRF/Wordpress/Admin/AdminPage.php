@@ -78,7 +78,7 @@ class AdminPage {
     $action = $_REQUEST['action'] ?? '';
     switch($action) {
       case 'delete':
-        $wpdb->delete($wpdb->get_blog_prefix().'wpcivimrf_profile', ["id" => $_REQUEST['profile_id']]);
+        $wpdb->delete($wpdb->get_blog_prefix().'wpcivimrf_profile', ["id" => (int) $_REQUEST['profile_id']]);
         $profiles = $result =$wpdb->get_results("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile");
         self::view( 'profiles', ['profiles' => $profiles] );
         break;
@@ -89,7 +89,7 @@ class AdminPage {
         $profile['site_key'] = sanitize_text_field($_POST['site_key']);
         $profile['api_key'] = sanitize_text_field($_POST['api_key']);
         if (!empty($_REQUEST['profile_id'])) {
-          $profile_id = esc_sql($_REQUEST['profile_id']);
+          $profile_id = (int) $_REQUEST['profile_id'];
           $wpdb->update($wpdb->get_blog_prefix() . 'wpcivimrf_profile', $profile, ["id" => $profile_id]);
         } else {
           $wpdb->insert($wpdb->get_blog_prefix() . 'wpcivimrf_profile', $profile);
@@ -113,7 +113,7 @@ class AdminPage {
         self::view( 'form', ['connectors' => $connectors]);
         break;
       case 'edit':
-        $id = esc_sql($_REQUEST['profile_id']);
+        $id = (int) $_REQUEST['profile_id'];
         $profile =$wpdb->get_row("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile WHERE id = {$id}");
         $core = wpcmrf_get_core();
         $connectors = $core->getRegisteredConnectors();
