@@ -20,16 +20,9 @@ class Call extends AbstractCall {
   protected $status       = CallInterface::STATUS_INIT;
   protected $metadata     = '{}';
   protected $cached_until = NULL;
-  protected $api_version  = '3';
-
-  public function __construct($core, $connector_id, $factory, $id = NULL, $version = '3') {
-    parent::__construct($core, $connector_id, $factory, $id);
-    $this->api_version = $version;
-  }
-
 
   public function getApiVersion(): string {
-    return $this->api_version;
+    return $this->request['version'];
   }
 
   public static function createNew($connector_id, $core, $entity, $action, $parameters, $options, $callback, $factory) {
@@ -42,9 +35,15 @@ class Call extends AbstractCall {
     $call = new Call($core, $connector_id, $factory, NULL, $api_version);
 
     // compile request
-    $call->request = $call->compileRequest($parameters, $options);
+    if ('3' === $api_version) {
+      $call->request = $call->compileRequest($parameters, $options);
+    }
+    elseif ('4' === $api_version) {
+      $call->request = $parameters;
+    }
     $call->request['entity'] = $entity;
     $call->request['action'] = $action;
+    $call->request[ 'version' ] = $api_version;
     $call->status = CallInterface::STATUS_INIT;
     $call->metadata = array();
 
@@ -80,6 +79,10 @@ class Call extends AbstractCall {
       $call->cached_until = new \DateTime($record->cached_until);
     }
     $call->request = json_decode($record->request, TRUE);
+    if (!isset($call->request[ 'version' ])) {
+      // For backward compatibility.
+      $call->request[ 'version' ] = $api_version;
+    }
     $call->reply = json_decode($record->reply, TRUE);
     $call->date = new \DateTime($record->create_date);
     if (!empty($record->reply_date)) {
