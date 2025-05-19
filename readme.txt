@@ -42,3 +42,9 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 1.0.2: Added multi site activation.
 1.0.1: Added InnoDB to the database tables. This gave sometimes an installation error.
 1.0.0: First version.
+
+== FAQ ==
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/4f50a738-600d-4e04-8bd1-b28312abae76)
