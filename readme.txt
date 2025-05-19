@@ -45,6 +45,16 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 
 == FAQ ==
 
+= How can I report busg? =
+
+You can report bugs at https://github.com/CiviMRF/civimcrestface-wordpress
+
+If you want to notify a (confidential) security bug you can do so by sending an e-mail to jaap.jansma@civicoop.org
+
+= How can I contribute? =
+
+You can contribute to the project by submitting Pull Requests at https://github.com/CiviMRF/civimcrestface-wordpress
+
 = How can I report security bugs? =
 
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/4f50a738-600d-4e04-8bd1-b28312abae76)
