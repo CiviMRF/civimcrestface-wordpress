@@ -5,7 +5,7 @@ Tags: CiviCRM, api, connector, rest
 Requires at least: 5.2
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: AGPL-3.0
 
 Provides an API connector to a local or remote CiviCRM installation. This connector could be used by other plugins. Funded by Artfulrobot, CiviCoop, civiservice.de, Bundesverband Soziokultur e.V., Article 19
@@ -30,19 +30,6 @@ Configuration can be done under **Settings > CiviCRM McRestFace Connections**.
 * [Bundesverband Soziokultur e.V.](https://www.soziokultur.de/)
 * [Article 19](https://www.article19.org/)
 
-== Changelog ==
-
-1.0.9: Fixed input sanitization
-1.0.8: Compatibility with Wordpress 6.4
-1.0.7: Fixed notice in CiviMRF Abstract Core
-1.0.6: Fixed regression bug
-1.0.5: Added CurlAuthX connector.
-1.0.4: Added multi site activation.
-1.0.3: Added multi site activation.
-1.0.2: Added multi site activation.
-1.0.1: Added InnoDB to the database tables. This gave sometimes an installation error.
-1.0.0: First version.
-
 == FAQ ==
 
 = How can I report busg? =
@@ -58,3 +45,18 @@ You can contribute to the project by submitting Pull Requests at https://github.
 = How can I report security bugs? =
 
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/4f50a738-600d-4e04-8bd1-b28312abae76)
+
+
+== Changelog ==
+
+1.0.10: Added FAQ to readme
+1.0.9: Fixed input sanitization
+1.0.8: Compatibility with Wordpress 6.4
+1.0.7: Fixed notice in CiviMRF Abstract Core
+1.0.6: Fixed regression bug
+1.0.5: Added CurlAuthX connector.
+1.0.4: Added multi site activation.
+1.0.3: Added multi site activation.
+1.0.2: Added multi site activation.
+1.0.1: Added InnoDB to the database tables. This gave sometimes an installation error.
+1.0.0: First version.
