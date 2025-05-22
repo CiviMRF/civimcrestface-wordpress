@@ -1,16 +1,18 @@
 <?php
+
 /**
  * @author Jaap Jansma <jaap.jansma@civicoop.org>
  * @license AGPL-3.0
  */
+
 ?>
 <div class="wrap">
 
-<h1 class="wp-heading-inline"><?php esc_html_e( 'CiviCRM McRestFace Connection' , 'wpcmrf');?></h1>
+<h1 class="wp-heading-inline"><?php esc_html_e('CiviCRM McRestFace Connection', 'wpcmrf');?></h1>
 
     <?php echo \CMRF\Wordpress\Admin\AdminPage::validate($profile->id ?? ''); ?>
 
-    <form name="wpcmrf_admin" id="wpcmrf_admin" action="<?php echo self_admin_url( 'options-general.php?page=wpcmrf_admin&action=save&profile_id=' . ($profile->id ?? '')); ?>" method="POST">
+    <form name="wpcmrf_admin" id="wpcmrf_admin" action="<?php echo self_admin_url('options-general.php?page=wpcmrf_admin&action=save&profile_id=' . ($profile->id ?? '')); ?>" method="POST">
         <div class="inside">
             <table cellspacing="0">
                 <tbody>
@@ -27,8 +29,10 @@
                     <td align="left">
                         <span>
                             <select id="connector" name="connector">
-                                <?php foreach($connectors as $connector_type => $connector) {?>
-                                  <option value="<?php echo esc_attr($connector_type); ?>" <?php if (isset($profile) && $profile->connector == $connector_type) {?>selected="selected"<?php } ?>><?php echo esc_html($connector['label']); ?></option>
+                                <?php foreach ($connectors as $connector_type => $connector) {?>
+                                  <option value="<?php echo esc_attr($connector_type); ?>" <?php if (isset($profile) && $profile->connector == $connector_type) {
+                                        ?>selected="selected"<?php
+                                                 } ?>><?php echo esc_html($connector['label']); ?></option>
                                 <?php } ?>
                             </select>
                         </span>
@@ -42,6 +46,16 @@
                         <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php (Drupal 7)'); ?></p>
                         <p class="description"><?php esc_html_e('or https://my-civi.org/civicrm/ajax/rest (Drupal 8/9 using AuthX)'); ?></p>
                         <p class="description"><?php esc_html_e('or https://my-civi.org/wp-json/civicrm/v3/rest (WordPress)'); ?></p>
+                    </td>
+                </tr>
+                <tr class="wpcmrf_remote">
+                    <th width="20%" align="left" scope="row"><?php esc_html_e('CiviCRM Rest URL (v4)', 'wpcmrf');?></th>
+                    <td width="5%"/>
+                    <td align="left">
+                        <span><input id="urlV4" name="urlV4" type="text" size="15" value="<?php echo esc_attr($profile->urlV4 ?? ''); ?>" class="regular-text code"></span>
+                        <p class="description"><?php esc_html_e('E.g. https://my-civi.org/sites/all/modules/civicrm/extern/rest.php (Drupal 7)'); ?></p>
+                        <p class="description"><?php esc_html_e('or https://my-civi.org/civicrm/ajax/api4 (Drupal 8/9 using AuthX)'); ?></p>
+                        <p class="description"><?php esc_html_e('or https://my-civi.org/civicrm/ajax/api4 (WordPress)'); ?></p>
                     </td>
                 </tr>
 

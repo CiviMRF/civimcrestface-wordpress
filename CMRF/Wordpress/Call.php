@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A simple, serialisable implementation of CMRF\Core\Call
  *
@@ -14,20 +15,35 @@ use CMRF\Core\AbstractCall as AbstractCall;
 use CMRF\Core\Call         as CallInterface;
 
 class Call extends AbstractCall {
-
-  protected $request  = NULL;
-  protected $reply    = NULL;
-  protected $status   = CallInterface::STATUS_INIT;
-  protected $metadata = '{}';
+  protected $request      = NULL;
+  protected $reply        = NULL;
+  protected $status       = CallInterface::STATUS_INIT;
+  protected $metadata     = '{}';
   protected $cached_until = NULL;
 
+  public function getApiVersion(): string {
+    return $this->request['version'];
+  }
+
   public static function createNew($connector_id, $core, $entity, $action, $parameters, $options, $callback, $factory) {
-    $call = new Call($core, $connector_id, $factory);
+    if (func_num_args() < 9) {
+      $api_version = '3';
+    }
+    else {
+      $api_version = func_get_arg(8) ?? '3';
+    }
+    $call = new Call($core, $connector_id, $factory, NULL, $api_version);
 
     // compile request
-    $call->request = $call->compileRequest($parameters, $options);
+    if ('3' === $api_version) {
+      $call->request = $call->compileRequest($parameters, $options);
+    }
+    elseif ('4' === $api_version) {
+      $call->request = $parameters;
+    }
     $call->request['entity'] = $entity;
     $call->request['action'] = $action;
+    $call->request[ 'version' ] = $api_version;
     $call->status = CallInterface::STATUS_INIT;
     $call->metadata = array();
 
@@ -42,22 +58,32 @@ class Call extends AbstractCall {
     // set the caching flag
     if (!empty($options['cache'])) {
       $call->cached_until = new \DateTime();
-      $call->cached_until->modify('+'.$options['cache']);
+      $call->cached_until->modify('+' . $options['cache']);
     }
 
     return $call;
   }
 
   public static function createWithRecord($connector_id, $core, $record, $factory) {
-    $call = new Call($core, $connector_id, $factory, $record->cid);
+    if (func_num_args() < 5) {
+      $api_version = '3';
+    }
+    else {
+      $api_version = func_get_arg(4) ?? '3';
+    }
+    $call = new Call($core, $connector_id, $factory, $record->cid, $api_version);
     $call->status = $record->status;
-    $call->metadata = json_decode($record->metadata, true);
+    $call->metadata = json_decode($record->metadata, TRUE);
     $call->retry_count = $record->retry_count;
     if (!empty($record->cached_until)) {
       $call->cached_until = new \DateTime($record->cached_until);
     }
     $call->request = json_decode($record->request, TRUE);
-    $call->reply   = json_decode($record->reply, TRUE);
+    if (!isset($call->request[ 'version' ])) {
+      // For backward compatibility.
+      $call->request[ 'version' ] = $api_version;
+    }
+    $call->reply = json_decode($record->reply, TRUE);
     $call->date = new \DateTime($record->create_date);
     if (!empty($record->reply_date)) {
       $call->reply_date = new \DateTime($record->reply_date);
@@ -158,11 +184,11 @@ class Call extends AbstractCall {
     $default_retry_interval = '10 minutes';
     $now = new \DateTime();
     if (isset($this->metadata['retry_interval'])) {
-      $now->modify('+ '.$this->metadata['retry_interval']);
+      $now->modify('+ ' . $this->metadata['retry_interval']);
       return $now;
     }
 
-    $now->modify('+ '.$default_retry_interval);
+    $now->modify('+ ' . $default_retry_interval);
     return $now;
   }
 
@@ -178,5 +204,3 @@ class Call extends AbstractCall {
     }
   }
 }
-
-

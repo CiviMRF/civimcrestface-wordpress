@@ -24,17 +24,17 @@
  */
 
 // All functions are Wordpress-specific.
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+defined('ABSPATH') or die('No script kiddies please!');
 
 $wpcmrf_version = '1.0.8';
-define( 'WPCMRF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define('WPCMRF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 
 require_once(WPCMRF_PLUGIN_DIR . '/vendor/autoload.php');
 // @todo autoloader for this.
 require_once(WPCMRF_PLUGIN_DIR . '/CMRF/Wordpress/Core.php');
-if ( is_admin() ) {
+if (is_admin()) {
   require_once(WPCMRF_PLUGIN_DIR . '/CMRF/Wordpress/Admin/AdminPage.php');
-  add_action( 'init', array( '\CMRF\Wordpress\Admin\AdminPage', 'init' ) );
+  add_action('init', array('\CMRF\Wordpress\Admin\AdminPage', 'init'));
 }
 
 /**
@@ -47,9 +47,9 @@ if ( is_admin() ) {
  *
  * @return CMRF\Wordpress\Call
  */
-function wpcmrf_api($entity, $action, $parameters, $options, $profile_id, $callbacks=array()) {
+function wpcmrf_api( $entity, $action, $parameters, $options, $profile_id, $callbacks = array(), $api_version = "3" ) {
   $core = wpcmrf_get_core();
-  $call = $core->createCall($profile_id, $entity, $action, $parameters, $options, $callbacks);
+  $call = $core->createCall($profile_id, $entity, $action, $parameters, $options, $callbacks, $api_version);
   $core->executeCall($call);
   return $call;
 }
@@ -61,22 +61,22 @@ function wpcmrf_get_core() {
   return \CMRF\Wordpress\Core::singleton();
 }
 
-function wpcmrf_core_curl_connector(\CMRF\Core\Core $core, $connector_id) {
+function wpcmrf_core_curl_connector( \CMRF\Core\Core $core, $connector_id ) {
   return new \CMRF\Wordpress\Connection\Curl($core, $connector_id);
 }
 
-function wpcmrf_core_curlauthx_connector(\CMRF\Core\Core $core, $connector_id) {
+function wpcmrf_core_curlauthx_connector( \CMRF\Core\Core $core, $connector_id ) {
   return new \CMRF\Wordpress\Connection\CurlAuthX($core, $connector_id);
 }
 
-function wpcmrf_core_local_connector(\CMRF\Core\Core $core, $connector_id) {
+function wpcmrf_core_local_connector( \CMRF\Core\Core $core, $connector_id ) {
   civi_wp()->initialize();
   return new \CMRF\Wordpress\Connection\Local($core, $connector_id);
 }
 
-function wpcmrf_install($network_wide) {
+function wpcmrf_install( $network_wide ) {
   if (is_multisite() && $network_wide) {
-    foreach (get_sites(['fields' => 'ids']) as $blog_id) {
+    foreach (get_sites([ 'fields' => 'ids' ]) as $blog_id) {
       switch_to_blog($blog_id);
       wpcmrf_install_into_current_blog();
       restore_current_blog();
@@ -90,7 +90,7 @@ function wpcmrf_install($network_wide) {
 function wpcmrf_install_into_current_blog() {
   global $wpdb;
   global $wpcmrf_version;
-  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
   $table_name = $wpdb->get_blog_prefix() . "wpcivimrf_profile";
   $charset_collate = $wpdb->get_charset_collate();
@@ -99,12 +99,13 @@ function wpcmrf_install_into_current_blog() {
       label varchar(255) DEFAULT '' NOT NULL,
       connector varchar(255) DEFAULT '' NOT NULL,
       url varchar(255) DEFAULT '' NOT NULL,
+      urlV4 varchar(255) DEFAULT '' NOT NULL,
       site_key varchar(255) DEFAULT '' NOT NULL,
-      api_key varchar(255) DEFAULT '' NOT NULL,      
+      api_key varchar(255) DEFAULT '' NOT NULL,
   PRIMARY KEY  (id)
   ) ENGINE = InnoDB $charset_collate;";
 
-  dbDelta( $sql );
+  dbDelta($sql);
 
   $table_name = $wpdb->get_blog_prefix() . "wpcmrf_core_call";
   $sql = "
@@ -120,23 +121,23 @@ function wpcmrf_install_into_current_blog() {
         `scheduled_date` timestamp NULL DEFAULT NULL COMMENT 'Scheduted timestamp of this call',
         `reply_date` timestamp NULL DEFAULT NULL COMMENT 'Reply timestamp of this call',
         `cached_until` timestamp NULL DEFAULT NULL COMMENT 'Cache timeout of this call',
-        `retry_count` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Retry counter for multiple submissions',  
+        `retry_count` tinyint(4) NOT NULL DEFAULT '0' COMMENT 'Retry counter for multiple submissions',
         PRIMARY KEY (`cid`),
         KEY `cmrf_by_connector` (`connector_id`,`status`),
         KEY `cmrf_cache_index` (`connector_id`,`request_hash`,`cached_until`)
     ) ENGINE = InnoDB $charset_collate";
 
-  dbDelta( $sql );
+  dbDelta($sql);
 
-  add_option( "wpcmrf_version", $wpcmrf_version);
+  add_option("wpcmrf_version", $wpcmrf_version);
 }
 
-register_activation_hook( __FILE__, 'wpcmrf_install' );
+register_activation_hook(__FILE__, 'wpcmrf_install');
 
-function wpcmrf_new_blog($blog_id) {
+function wpcmrf_new_blog( $blog_id ) {
 
   //replace with your base plugin path E.g. dirname/filename.php
-  if ( is_plugin_active_for_network( 'connector-civicrm-mcrestface/wpcmrf.php' ) ) {
+  if (is_plugin_active_for_network('connector-civicrm-mcrestface/wpcmrf.php')) {
     switch_to_blog($blog_id);
     wpcmrf_install_into_current_blog();
     restore_current_blog();
