@@ -49,14 +49,16 @@ class AdminPage {
 
   public function clear_cache() {
     global $wpdb;
-    if (isset($_REQUEST[ 'page' ]) && $_REQUEST[ 'page' ] == 'wpcmrf_calllog') {
-      $action = $_REQUEST[ 'action' ] ?? '';
-      switch ($action) {
-        case 'clear':
-          $wpdb->query($wpdb->prepare("DELETE FROM `" . $wpdb->get_blog_prefix() . "wpcmrf_core_call`"));
-          wp_redirect(menu_page_url('wpcmrf_calllog', FALSE));
-          exit();
-          break;
+    if (current_user_can('manage_options')) {
+      if (isset($_REQUEST['page']) && $_REQUEST['page'] == 'wpcmrf_calllog') {
+        $action = $_REQUEST['action'] ?? '';
+        switch ($action) {
+          case 'clear':
+            $wpdb->query($wpdb->prepare("DELETE FROM `" . $wpdb->get_blog_prefix() . "wpcmrf_core_call`"));
+            wp_redirect(menu_page_url('wpcmrf_calllog', FALSE));
+            exit();
+            break;
+        }
       }
     }
   }
