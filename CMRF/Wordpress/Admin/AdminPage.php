@@ -149,12 +149,24 @@ class AdminPage {
     if (!$profile_id) {
       return;
     }
+    global $wpdb;
+    $profile = $wpdb->get_row("SELECT * FROM {$wpdb->get_blog_prefix()}wpcivimrf_profile WHERE id = {$profile_id}");
     // There's nothing special about System.getcount - anything call will do
     $call = wpcmrf_api("Entity", "get", [], [], $profile_id);
     $reply = $call->getReply();
     $error = $reply[ 'error_message' ] ?? NULL;
     if (!$error) {
-      $error = $reply[ 'is_error' ] ? 'ERROR: check URL' : '';
+      $error = $reply[ 'is_error' ] ? 'ERROR: check api URL' : '';
+    }
+    if (empty($error) && !empty($profile->urlV4)) {
+      $call = wpcmrf_api("Entity", "get", [], [], $profile_id, [], 4);
+      $reply = $call->getReply();
+      $error = $reply[ 'error_message' ] ?? NULL;
+      if (!$error) {
+        $error = isset($reply[ 'is_error' ]) ? 'ERROR: Check Rest Url (v4)' : '';
+      } else {
+        $error .= ' :: Check Rest Url (v4)';
+      }
     }
 
     if ($show_message) {
